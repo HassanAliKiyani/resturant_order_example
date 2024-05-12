@@ -13,6 +13,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Container(
           child: Text(dotenv.env["APPLICATION_MOD"]!),
         ),
