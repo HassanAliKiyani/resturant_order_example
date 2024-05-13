@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:resturant_order_example/components/button_component.dart';
 import 'package:resturant_order_example/components/textfield_component.dart';
+import 'package:resturant_order_example/pages/Home.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key, required this.onTap});
+  Function()? onTap;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -15,6 +19,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
+
+  void loginAction() {
+    //Perform Validation
+
+    log("Login Performed");
+    //Navigate to login Page
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +81,8 @@ class _LoginPageState extends State<LoginPage> {
             height: 8,
           ),
           ComponentButton(
-            buttonText: "Login",
-            onTap: () {},
+            buttonText: "Sign In",
+            onTap: loginAction,
           ),
           //Register now
 
@@ -84,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: 4,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: widget.onTap,
                 child: const Text(
                   "Register Now",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
