@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:resturant_order_example/components/drawer_component.dart';
+import 'package:resturant_order_example/components/sliverAppBar_component.dart';
+import 'package:resturant_order_example/widget/coverDescription_widget.dart';
+import 'package:resturant_order_example/widget/location_widget.dart';
+import 'package:resturant_order_example/widget/tabBar_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,19 +12,55 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(length: 3, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: AppBar(
-          title: Text("H O M E"),
-        ),
-        drawer: ComponentDrawer(),
-        body: Container(
-          child: Text(dotenv.env["APPLICATION_MOD"]!),
-        ),
+        drawer: const ComponentDrawer(),
+        body: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                  ComponentSliverAppBar(
+                    title: TabBarWidget(
+                      tabController: tabController,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 24.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Divider(
+                            indent: 25,
+                            endIndent: 25,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          MyLocationWidget(),
+                          const CoverDescriptionWidget()
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+            body: TabBarView(
+              controller: tabController,
+              children: [
+                Container(color: Colors.blue,),
+                
+                Container(color: Colors.amber,),
+                
+                Container(color: Colors.red,),
+              ]),
+        )
       ),
     );
   }
