@@ -54,11 +54,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             body: TabBarView(
               controller: tabController,
               children: [
-                Container(color: Colors.blue,),
-                
-                Container(color: Colors.amber,),
-                
-                Container(color: Colors.red,),
+                ListView.builder(itemCount: 5,itemBuilder: (context,int index){
+                  return ListTile(title: Text("Food Item $index"),);
+                }),
+                ListView.builder(itemCount: 5,itemBuilder: (context,int index){
+                  return ListTile(title: Text("Food Item $index"),);
+                }),
+                ListView.builder(itemCount: 5,itemBuilder: (context,int index){
+                  return ListTile(title: Text("Food Item $index"),);
+                }),
               ]),
         )
       ),

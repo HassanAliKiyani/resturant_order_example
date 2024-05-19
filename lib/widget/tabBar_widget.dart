@@ -10,9 +10,9 @@ class TabBarWidget extends StatelessWidget {
       child: TabBar(
         controller: tabController,
         tabs: [
-          Text("Blue"),
-          Text("Amber"),
-          Text("Red"),
+          Text("Menu1"),
+          Text("Menu2"),
+          Text("Menu3"),
         ],
       ),
     );
